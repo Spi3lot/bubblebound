@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6nmjsf0nc2m4"]
+
+[ext_resource type="PackedScene" uid="uid://bxgdji8wg2jbn" path="res://scenes/player.tscn" id="1_4nltp"]
+[ext_resource type="Script" path="res://scripts/Main.cs" id="1_ayp04"]
+[ext_resource type="PackedScene" uid="uid://dx8aetjiqexrx" path="res://scenes/enemy.tscn" id="2_6thr0"]
+[ext_resource type="PackedScene" uid="uid://b05jith0i5fsi" path="res://scenes/bubble.tscn" id="3_k7sn0"]
+
+[sub_resource type="TileSet" id="TileSet_2g46k"]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("_player")]
+script = ExtResource("1_ayp04")
+_player = NodePath("Player")
+_enemyScene = ExtResource("2_6thr0")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_2g46k")
+
+[node name="Player" parent="." instance=ExtResource("1_4nltp")]
+position = Vector2(56, 24)
+
+[node name="Bubble" parent="Player" instance=ExtResource("3_k7sn0")]
