@@ -41,9 +41,7 @@ public partial class Bubble : Area2D
         AreaEntered -= Hit;
         _trappedEnemy = true;
         Scale = new Vector2(10, 10);
-        Position = Vector2.Zero;
-        GetParent().RemoveChild(this);
-        enemy.AddChild(this);
+        Position = enemy.Position;
         enemy.Trap(this);
     }
 
