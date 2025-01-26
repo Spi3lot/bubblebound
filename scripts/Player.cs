@@ -1,3 +1,5 @@
+using System;
+
 using Godot;
 
 namespace Bubblebound.Scripts;
@@ -69,17 +71,21 @@ public partial class Player : AnimatedCharacter
 
     private static string GetAttackDirection(Vector2 direction)
     {
-        return (direction.X, direction.Y) switch
+        float radians = direction.Angle();
+        float degrees = Mathf.RadToDeg(radians);
+        degrees = Mathf.PosMod(degrees, 360);
+        
+        return (degrees) switch
         {
-            (< 0, < 0) => "left_up",
-            (< 0, 0) => "left",
-            (< 0, > 0) => "left_down",
-            (0, < 0) => "up",
-            (0, > 0) => "down",
-            (> 0, < 0) => "right_up",
-            (> 0, 0) => "right",
-            (> 0, > 0) => "right_down",
-            _ => "congratulations"
+            >= 315 + 22.5f or < 0 + 22.5f => "right",
+            >= 45 - 22.5f and < 45 + 22.5f => "right_down",
+            >= 90 - 22.5f and < 90 + 22.5f => "down",
+            >= 135 - 22.5f and < 135 + 22.5f => "left_down",
+            >= 180 - 22.5f and < 180 + 22.5f => "left",
+            >= 225 - 22.5f and < 225 + 22.5f => "left_up",
+            >= 270 - 22.5f and < 270 + 22.5f => "up",
+            >= 315 - 22.5f and < 315 + 22.5f => "right_up",
+            float.NaN => throw new InvalidOperationException("Degrees can't be float.NaN")
         };
     }
 
