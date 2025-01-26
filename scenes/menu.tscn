@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxu6648a1b7o8"]
+
+[ext_resource type="Script" path="res://scripts/Menu.cs" id="1_ahifk"]
+[ext_resource type="PackedScene" uid="uid://c6nmjsf0nc2m4" path="res://scenes/game.tscn" id="2_rrv75"]
+[ext_resource type="PackedScene" uid="uid://b05jith0i5fsi" path="res://scenes/bubble.tscn" id="3_78r5q"]
+
+[sub_resource type="SystemFont" id="SystemFont_lpedp"]
+font_names = PackedStringArray("Comic Sans MS")
+
+[node name="Menu" type="Control" node_paths=PackedStringArray("_bubbleTimer", "_playButton", "_quitButton")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahifk")
+_bubbleScene = ExtResource("3_78r5q")
+_bubbleTimer = NodePath("BubbleTimer")
+_gameScene = ExtResource("2_rrv75")
+_playButton = NodePath("VBoxContainer/PlayButton")
+_quitButton = NodePath("VBoxContainer/QuitButton")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.529412, 1, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.288434
+anchor_top = 0.096
+anchor_right = 0.712434
+anchor_bottom = 0.262
+offset_left = -0.276031
+offset_top = -0.208
+offset_right = 0.276001
+offset_bottom = 0.223984
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_lpedp")
+theme_override_font_sizes/font_size = 75
+text = "Bubblebound"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.373792
+anchor_top = 0.41042
+anchor_right = 0.626208
+anchor_bottom = 0.58958
+offset_left = 0.391998
+offset_top = 0.0479736
+offset_right = -0.39209
+offset_bottom = -0.0480042
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Play"
+metadata/_edit_use_anchors_ = true
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+metadata/_edit_use_anchors_ = true
+
+[node name="BubbleTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
