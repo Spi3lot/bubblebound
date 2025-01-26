@@ -42,10 +42,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy" type="Area2D" node_paths=PackedStringArray("AnimatedSprite")]
+[node name="Enemy" type="Area2D" node_paths=PackedStringArray("AnimatedSprite", "_breakoutTimer")]
 script = ExtResource("1_1sfpj")
 MovementSpeed = 100.0
 AnimatedSprite = NodePath("AnimatedSprite2D")
+_breakoutTimer = NodePath("BreakoutTimer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_c28i8")
@@ -55,3 +56,7 @@ scale = Vector2(0.32, 0.32)
 sprite_frames = SubResource("SpriteFrames_1dywr")
 autoplay = "default"
 frame_progress = 0.00449874
+
+[node name="BreakoutTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true

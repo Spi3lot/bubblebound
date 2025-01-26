@@ -20,8 +20,6 @@ public partial class Player : AnimatedCharacter
     [ExportGroup("Mana")]
     [Export] public int Mana { get; set; } = 100;
 
-    public int CollidingEnemyCount { get; set; }
-
     public override void _EnterTree()
     {
         Singleton = this;
@@ -31,7 +29,6 @@ public partial class Player : AnimatedCharacter
 
     public override void _Process(double delta)
     {
-        TakeDamage(delta * CollidingEnemyCount);
         if (!IsShooting()) return;
         Mana--;
         var bubble = _bubbleScene.Instantiate<Bubble>();
@@ -59,13 +56,11 @@ public partial class Player : AnimatedCharacter
         PlayAnimation();
     }
 
-
-    private void TakeDamage(double damage)
+    public void TakeDamage(double damage)
     {
         Health -= damage;
-        if (Health > 0) return;
-        GetTree().ChangeSceneToPacked(_overScene);
-    }
+        if (Health <= 0) GetTree().ChangeSceneToPacked(_overScene);
+    } 
 
     private bool IsShooting() => Input.IsActionPressed("shoot") && Mana > 0;
 

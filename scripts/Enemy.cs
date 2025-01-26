@@ -5,16 +5,29 @@ namespace Bubblebound.Scripts;
 public partial class Enemy : Area2D
 {
 
-    [Export] protected float MovementSpeed = 200;
+    private bool _playerColliding;
+
+    private Bubble _bubble;
+
+    [Export] public float MovementSpeed { get; private set; }
 
     [Export] public AnimatedSprite2D AnimatedSprite { get; private set; }
 
-    public bool Trapped { get; set; }
+    [Export] private Timer _breakoutTimer;
+
+    public bool Trapped { get; private set; }
 
     public override void _Ready()
     {
-        BodyEntered += IncrementPlayerCollidingEnemyCount;
-        BodyExited += DecrementPlayerCollidingEnemyCount;
+        _breakoutTimer.Timeout += () =>
+        {
+            _bubble.QueueFree();
+            _bubble = null;
+            Trapped = false;
+        };
+
+        BodyEntered += body => { if (body is Player) _playerColliding = true; };
+        BodyExited += body => { if (body is Player) _playerColliding = false; };
         var camera = GetViewport().GetCamera2D();
 
         Position = new Vector2(
@@ -25,7 +38,13 @@ public partial class Enemy : Area2D
 
     public override void _Process(double delta)
     {
-        if (Trapped || Player.Singleton.Health <= 0) return;
+        if (_playerColliding)
+        {
+            if (Trapped) Pop();
+            else Player.Singleton.TakeDamage(delta);
+        }
+
+        if (Trapped) return;
         var direction = Player.Singleton.Position - Position;
         Position += (float) delta * MovementSpeed * direction.Normalized();
     }
@@ -34,25 +53,14 @@ public partial class Enemy : Area2D
     {
         if (Trapped) return;
         Trapped = true;
-        BodyExited -= DecrementPlayerCollidingEnemyCount;
-        BodyEntered -= IncrementPlayerCollidingEnemyCount;
-
-        BodyEntered += body =>
-        {
-            if (body is not Player) return;
-            QueueFree();
-            bubble.QueueFree();
-        };
+        _bubble = bubble;
+        _breakoutTimer.Start();
     }
 
-    private static void IncrementPlayerCollidingEnemyCount(Node body)
+    private void Pop()
     {
-        if (body is Player player) player.CollidingEnemyCount++;
-    }
-
-    private static void DecrementPlayerCollidingEnemyCount(Node body)
-    {
-        if (body is Player player) player.CollidingEnemyCount--;
+        _bubble.QueueFree();
+        QueueFree();
     }
 
 }
