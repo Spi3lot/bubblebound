@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bubblegum", "bubblegum.csproj", "{266D98A5-55B2-4459-ABEE-E91BAFF6E2E2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bubblebound", "bubblebound.csproj", "{266D98A5-55B2-4459-ABEE-E91BAFF6E2E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

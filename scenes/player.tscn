@@ -1,11 +1,44 @@
-[gd_scene load_steps=22 format=3 uid="uid://bxgdji8wg2jbn"]
+[gd_scene load_steps=31 format=3 uid="uid://bxgdji8wg2jbn"]
 
 [ext_resource type="Script" path="res://scripts/Player.cs" id="1_mm401"]
 [ext_resource type="Texture2D" uid="uid://3dvb1c70tatb" path="res://assets/wizardsprite.png" id="2_dvkgm"]
 [ext_resource type="PackedScene" uid="uid://b05jith0i5fsi" path="res://scenes/bubble.tscn" id="2_r7ywf"]
+[ext_resource type="PackedScene" uid="uid://c6ftj638l2yn1" path="res://scenes/over.tscn" id="3_8pjb2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oqjgg"]
 size = Vector2(112, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5h8q0"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(1750, 0, 350, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ildt"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(1750, 800, 350, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_engan"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(2100, 800, 350, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngkn8"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(2100, 400, 350, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8fvj"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(1750, 1200, 350, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6b8m"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(2100, 0, 350, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j45ro"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(2100, 1200, 350, 400)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q82xa"]
+atlas = ExtResource("2_dvkgm")
+region = Rect2(1750, 400, 350, 400)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cn4pa"]
 atlas = ExtResource("2_dvkgm")
@@ -73,6 +106,70 @@ region = Rect2(1400, 400, 350, 400)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_teosr"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5h8q0")
+}],
+"loop": true,
+"name": &"attack_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ildt")
+}],
+"loop": true,
+"name": &"attack_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_engan")
+}],
+"loop": true,
+"name": &"attack_left_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ngkn8")
+}],
+"loop": true,
+"name": &"attack_left_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f8fvj")
+}],
+"loop": true,
+"name": &"attack_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6b8m")
+}],
+"loop": true,
+"name": &"attack_right_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j45ro")
+}],
+"loop": true,
+"name": &"attack_right_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q82xa")
+}],
+"loop": true,
+"name": &"attack_up",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cn4pa")
@@ -162,10 +259,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_sprite")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_manaTimer", "AnimatedSprite")]
 script = ExtResource("1_mm401")
 _bubbleScene = ExtResource("2_r7ywf")
-_sprite = NodePath("AnimatedSprite2D")
+_manaTimer = NodePath("ManaTimer")
+_overScene = ExtResource("3_8pjb2")
+Mana = 1000
+AnimatedSprite = NodePath("AnimatedSprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_oqjgg")
@@ -173,4 +273,8 @@ shape = SubResource("RectangleShape2D_oqjgg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.32, 0.32)
 sprite_frames = SubResource("SpriteFrames_teosr")
-animation = &"move_left"
+animation = &"idle_down"
+
+[node name="ManaTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true

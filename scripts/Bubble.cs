@@ -1,22 +1,50 @@
-using Bubblegum.Scripts;
 using Godot;
+
+namespace Bubblebound.Scripts;
 
 public partial class Bubble : Area2D
 {
-    // Called when the node enters the scene tree for the first time.
+
+    private bool _trappedEnemy;
+
+    private float _totalDistanceTraveled;
+
+    [Export] public float Speed { get; set; } = 500;
+
+    [Export] public float Range { get; set; } = 500;
+
+    public Vector2 Direction { get; set; }
+
     public override void _Ready()
     {
-        BodyEntered += Hit;
+        AreaEntered += Hit;
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        if (_trappedEnemy) return;
+        float distanceTraveled = (float) delta * Speed;
+        _totalDistanceTraveled += distanceTraveled;
+
+        if (_totalDistanceTraveled > Range)
+        {
+            QueueFree();
+            return;
+        }
+
+        Position += Direction * distanceTraveled;
     }
 
     private void Hit(Node2D node)
     {
-        if (node is not Enemy enemy) return;
-        GD.Print("Hit " + enemy);
+        if (node is not Enemy enemy || enemy.Trapped) return;
+        AreaEntered -= Hit;
+        _trappedEnemy = true;
+        Scale = new Vector2(10, 10);
+        Position = Vector2.Zero;
+        GetParent().RemoveChild(this);
+        enemy.AddChild(this);
+        enemy.Trap(this);
     }
+
 }
