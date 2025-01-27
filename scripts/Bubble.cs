@@ -9,11 +9,13 @@ public partial class Bubble : Area2D
 
     private float _totalDistanceTraveled;
 
-    [Export] public float Speed { get; set; } = 500;
-
-    [Export] public float Range { get; set; } = 500;
-
     public Vector2 Direction { get; set; }
+
+    [Export]
+    public float Speed { get; set; } = 500;
+
+    [Export]
+    public float Range { get; set; } = 500;
 
     public override void _Ready()
     {

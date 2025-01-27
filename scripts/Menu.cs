@@ -5,15 +5,21 @@ namespace Bubblebound.Scripts;
 public partial class Menu : Control
 {
 
-    [ExportGroup("Bubbles")] [Export] private PackedScene _bubbleScene;
+    [Export]
+    private Button _playButton;
 
-    [Export] private Timer _bubbleTimer;
-
-    [Export] private PackedScene _gameScene;
-
-    [Export] private Button _playButton;
-
-    [Export] private Button _quitButton;
+    [Export]
+    private Button _quitButton;
+    
+    [Export]
+    private PackedScene _gameScene;
+    
+    [ExportGroup("Bubbles")]
+    [Export]
+    private PackedScene _bubbleScene;
+    
+    [Export]
+    private Timer _bubbleTimer;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

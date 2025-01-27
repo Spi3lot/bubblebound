@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6ftj638l2yn1"]
+[gd_scene load_steps=3 format=3 uid="uid://c6ftj638l2yn1"]
 
 [ext_resource type="Script" path="res://scripts/Over.cs" id="1_8nbio"]
 
-[node name="Over" type="Control" node_paths=PackedStringArray("_menuButton", "_quitButton", "_retryButton")]
+[sub_resource type="SystemFont" id="SystemFont_3h8uu"]
+font_names = PackedStringArray("Comic Sans MS")
+
+[node name="Over" type="Control" node_paths=PackedStringArray("_retryButton", "_menuButton", "_quitButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,9 +13,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8nbio")
+_retryButton = NodePath("VBoxContainer/RetryButton")
 _menuButton = NodePath("VBoxContainer/MenuButton")
 _quitButton = NodePath("VBoxContainer/QuitButton")
-_retryButton = NodePath("VBoxContainer/RetryButton")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -37,6 +40,7 @@ offset_right = 0.276001
 offset_bottom = 0.223984
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_3h8uu")
 theme_override_font_sizes/font_size = 75
 text = "Game Over"
 horizontal_alignment = 1

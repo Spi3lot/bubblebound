@@ -2,21 +2,27 @@
 
 namespace Bubblebound.Scripts;
 
-public partial class Main : Node2D
+public partial class Game : Node2D
 {
 
-    [Export] private PackedScene _enemyScene;
-    
-    [Export] private Player _player;
-    
-    [Export] private TileMapLayer _tileMapLayer;
+    [Export]
+    private PackedScene _enemyScene;
 
-    [Export] private Timer _timer;
+    [Export]
+    private Timer _timer;
+
+    [Export]
+    private TileMapLayer _tileMapLayer;
+
+    [Export]
+    private Player _player;
 
     [ExportGroup("Tile Map Used Rect")]
-    [Export] private bool _override;
+    [Export]
+    private bool _override;
 
-    [Export] private Rect2I _rect;
+    [Export]
+    private Rect2I _rect;
 
     public override void _Ready()
     {

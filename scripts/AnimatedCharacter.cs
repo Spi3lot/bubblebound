@@ -9,9 +9,11 @@ public partial class AnimatedCharacter : CharacterBody2D
 
     protected Vector2 FacingDirection = Vector2.Down;
 
-    [Export] protected float MovementSpeed = 200;
+    [Export]
+    protected float MovementSpeed = 200;
 
-    [Export] public AnimatedSprite2D AnimatedSprite { get; private set; }
+    [Export]
+    public AnimatedSprite2D AnimatedSprite { get; private set; }
 
     protected void UpdateVelocity(Vector2 velocity)
     {

@@ -5,9 +5,11 @@ namespace Bubblebound.Scripts;
 public partial class Gui : CanvasLayer
 {
 
-    [Export] private ProgressBar _healthBar;
+    [Export]
+    private ProgressBar _manaBar;
 
-    [Export] private ProgressBar _manaBar;
+    [Export]
+    private ProgressBar _healthBar;
 
     public override void _Ready()
     {

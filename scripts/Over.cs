@@ -9,11 +9,14 @@ public partial class Over : Control
 
     private static readonly PackedScene MenuScene = ResourceLoader.Load<PackedScene>("res://scenes/menu.tscn");
 
-    [Export] private Button _menuButton;
+    [Export]
+    private Button _retryButton;
+    
+    [Export]
+    private Button _menuButton;
 
-    [Export] private Button _quitButton;
-
-    [Export] private Button _retryButton;
+    [Export]
+    private Button _quitButton;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()

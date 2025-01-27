@@ -8,17 +8,22 @@ public partial class Player : AnimatedCharacter
 {
 
     public static Player Singleton { get; private set; }
-    
-    [Export] private PackedScene _bubbleScene;
 
-    [Export] private Timer _manaTimer;
+    [Export]
+    private PackedScene _bubbleScene;
 
-    [Export] private PackedScene _overScene;
+    [Export]
+    private PackedScene _overScene;
 
-    [Export] public double Health { get; set; } = 1;
+    [Export]
+    public double Health { get; set; } = 1;
 
     [ExportGroup("Mana")]
-    [Export] public int Mana { get; set; } = 100;
+    [Export]
+    public int Mana { get; set; } = 100;
+
+    [Export]
+    private Timer _manaTimer;
 
     public override void _EnterTree()
     {
@@ -60,7 +65,7 @@ public partial class Player : AnimatedCharacter
     {
         Health -= damage;
         if (Health <= 0) GetTree().ChangeSceneToPacked(_overScene);
-    } 
+    }
 
     private bool IsShooting() => Input.IsActionPressed("shoot") && Mana > 0;
 
@@ -69,7 +74,7 @@ public partial class Player : AnimatedCharacter
         float radians = direction.Angle();
         float degrees = Mathf.RadToDeg(radians);
         degrees = Mathf.PosMod(degrees, 360);
-        
+
         return (degrees) switch
         {
             >= 315 + 22.5f or < 0 + 22.5f => "right",

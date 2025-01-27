@@ -5,17 +5,20 @@ namespace Bubblebound.Scripts;
 public partial class Enemy : Area2D
 {
 
+    private Bubble _bubble;
+    
     private bool _playerColliding;
 
-    private Bubble _bubble;
-
-    [Export] public float MovementSpeed { get; private set; }
-
-    [Export] public AnimatedSprite2D AnimatedSprite { get; private set; }
-
-    [Export] private Timer _breakoutTimer;
-
     public bool Trapped { get; private set; }
+
+    [Export]
+    public AnimatedSprite2D AnimatedSprite { get; private set; }
+
+    [Export]
+    private Timer _breakoutTimer;
+    
+    [Export]
+    public float MovementSpeed { get; private set; }
 
     public override void _Ready()
     {
@@ -26,8 +29,16 @@ public partial class Enemy : Area2D
             Trapped = false;
         };
 
-        BodyEntered += body => { if (body is Player) _playerColliding = true; };
-        BodyExited += body => { if (body is Player) _playerColliding = false; };
+        BodyEntered += body =>
+        {
+            if (body is Player) _playerColliding = true;
+        };
+
+        BodyExited += body =>
+        {
+            if (body is Player) _playerColliding = false;
+        };
+
         var camera = GetViewport().GetCamera2D();
 
         Position = new Vector2(
